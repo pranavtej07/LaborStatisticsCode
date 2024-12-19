@@ -2,6 +2,9 @@
 name: Updating BLS Data
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: "30 13 15 * *"
   workflow_dispatch:
@@ -21,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas requests
+          pip install -r requirements.txt
 
       - name: Update BLS Data
         run: python retrive_last_month.py
