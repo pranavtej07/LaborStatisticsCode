@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+  pull_request:
   schedule:
     - cron: "30 13 15 * *"
 
