@@ -3,7 +3,7 @@ name: Updating BLS Data
 
 on:
   schedule:
-    - cron: "0 0 1 * *" 
+    - cron: "30 13 15 * *"
   workflow_dispatch:
 
 jobs:
