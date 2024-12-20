@@ -4,7 +4,7 @@ from datetime import datetime
 import requests as re
 import os
 
-API_KEY = "93ee8e3a1d66428298ca51eceb0fca71"
+API_KEY = "8d5d733d30094432bcc520a2812a8223"
 URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
 
 DATASETS_IDS = {
