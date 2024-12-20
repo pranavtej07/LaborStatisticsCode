@@ -30,7 +30,7 @@ def data_retrival(startyear, endyear, DATASETS_IDS, API_KEY):
 def dataprocessing_save(start_year, end_year, output_file, DATASETS_IDS, API_KEY):   
     all_data = []
     for name, series_id in DATASETS_IDS.items():
-        raw_data = data_retrival(start_year, end_year, DATASETS_IDS, API_KEY)
+        raw_data = data_retrival(start_year, end_year, {name: series_id}, API_KEY)
         records = raw_data.get("Results", {}).get("series", [])[0].get("data", [])
         df = pd.DataFrame(records)
         df["SERIES_NAME"] = name
