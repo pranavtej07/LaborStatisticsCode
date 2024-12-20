@@ -54,7 +54,7 @@ output_file = "data/Retrived_data.xlsx"
 def main(start_year, end_year):
     start_year =start_year.year
     end_year = end_year.year
-    data = pd.read_excel(output_file, sheet_name=None)
+    data = pd.read_excel(output_file, sheet_name=None, engine='openpyxl')
     if os.path.exists(CSV_FILE):
         os.remove(CSV_FILE)
     df_combined = pd.concat(data.values(), ignore_index=True)
