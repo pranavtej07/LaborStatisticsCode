@@ -6,6 +6,7 @@ from retrive import main, CSV_FILE, DATASETS_IDS
 import plotly.express as px
 import matplotlib.cm as cm
 import numpy as np
+import plotly.graph_objects as go
 
 slt.set_page_config(layout="wide")
 
@@ -77,7 +78,7 @@ if start_date and end_date:
     fig.update_traces(
         fill='tozeroy',  
         line_color='red', 
-        fillcolor='blue',
+        fillcolor='green',
         marker=dict(color=civilian_labor_force_data['VALUE'], colorscale='Plasma')  
     )
 
@@ -88,22 +89,35 @@ if start_date and end_date:
     #ploting the scattered for the Total Nonfarm Employment
     civilian_Nonfarm_force_data = filtered_data['Total Nonfarm Employment']
     civilian_Nonfarm_force_data['YEAR_MONTH'] = pd.to_datetime(civilian_Nonfarm_force_data['YEAR_MONTH'], format='%Y-%m-%d', errors='coerce')
-    civilian_Nonfarm_force_data['YEAR_MONTH'] = civilian_Nonfarm_force_data['YEAR_MONTH'].dt.to_period('M')
-    civilian_Nonfarm_force_data['YEAR_MONTH'] = civilian_Nonfarm_force_data['YEAR_MONTH'].dt.to_timestamp()
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.scatter(civilian_Nonfarm_force_data['YEAR_MONTH'], civilian_Nonfarm_force_data['VALUE'], color='blue', label='Employment Data')
-    x = civilian_Nonfarm_force_data['YEAR_MONTH'].astype(np.int64) // 10**9  
+    x = civilian_Nonfarm_force_data['YEAR_MONTH'].apply(lambda date: date.timestamp())  
     y = civilian_Nonfarm_force_data['VALUE']
     norm_x = (x - x.min()) / (x.max() - x.min())
-    colors = cm.summer(norm_x) 
-    ax.plot(civilian_Nonfarm_force_data['YEAR_MONTH'], y, color='green', alpha=0.7, linewidth=2)
-    ax.set_title('Total Nonfarm Employment Over Time', fontsize=16)
-    ax.set_xlabel('Year-Month', fontsize=12)
-    ax.set_ylabel('Total Nonfarm Employment', fontsize=12)
-    ax.legend()
-    plt.xticks(rotation=45)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=civilian_Nonfarm_force_data['YEAR_MONTH'], 
+        y=y, 
+        mode='markers',
+        marker=dict(color='blue', size=8),
+        name='Employment Data'
+    ))
+    fig.add_trace(go.Scatter(
+        x=civilian_Nonfarm_force_data['YEAR_MONTH'], 
+        y=y, 
+        mode='lines',
+        line=dict(color='green', width=2, dash='solid'),
+        name='Trend Line'
+    ))
+    fig.update_layout(
+        title='Total Nonfarm Employment Over Time',
+        xaxis_title='Year-Month',
+        yaxis_title='Total Nonfarm Employment',
+        template='plotly_white',
+        height=600,
+        title_font_size=16,
+        margin=dict(l=20, r=20, t=50, b=20),
+    )
     slt.subheader("Total Nonfarm Employment Over Time with Gradient Green Line")
-    slt.pyplot(fig)
+    slt.plotly_chart(fig, use_container_width=True)
     
     
     #ploting the bar graph graph for the Civilian Employment
