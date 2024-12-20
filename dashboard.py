@@ -27,8 +27,7 @@ end_date = slt.sidebar.date_input("End Date", min_value=datetime(2000, 1, 1), ma
 main(start_date, end_date)
 
 if start_date and end_date:
-    if slt.sidebar.button('Retrieve'):
-         main(start_date, end_date)
+    main(start_date, end_date)
     data = pd.read_csv(CSV_FILE)
     data['FOOTNOTES'] = data['FOOTNOTES'].fillna('No footnotes')
     filtered_data = {}
