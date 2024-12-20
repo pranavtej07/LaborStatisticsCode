@@ -24,6 +24,8 @@ max_start_date = current_date - timedelta(days=365)
 start_date = slt.sidebar.date_input("Start Date", min_value=datetime(2000, 1, 1), max_value=max_start_date, value=datetime(2023, 1, 1))
 end_date = slt.sidebar.date_input("End Date", min_value=datetime(2000, 1, 1), max_value=current_date, value=current_date)
 
+main(start_date, end_date)
+
 if start_date and end_date:
     if slt.sidebar.button('Retrieve'):
          main(start_date, end_date)
