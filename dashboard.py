@@ -16,7 +16,9 @@ slt.title("US Bureau of Labor Statistics Dashboard")
 slt.sidebar.header("Filters")
 slt.sidebar.markdown("Use the filters below to select your date range.")
 
-current_date = datetime.now()
+local_timezone = pytz.timezone("America/New_York")
+
+current_date = datetime.now(local_timezone)
 max_start_date = current_date - timedelta(days=365)
 start_date = slt.sidebar.date_input("Start Date", min_value=datetime(2000, 1, 1), max_value=max_start_date, value=datetime(2023, 1, 1))
 end_date = slt.sidebar.date_input("End Date", min_value=datetime(2000, 1, 1), max_value=current_date, value=current_date)
