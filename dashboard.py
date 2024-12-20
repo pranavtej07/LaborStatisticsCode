@@ -76,7 +76,8 @@ if start_date and end_date:
     line_shape='linear')
     fig.update_traces(
         fill='tozeroy',  
-        line_color='black',  
+        line_color='red', 
+        fillcolor='blue',
         marker=dict(color=civilian_labor_force_data['VALUE'], colorscale='Plasma')  
     )
 
@@ -136,20 +137,20 @@ if start_date and end_date:
     slt.plotly_chart(fig, use_container_width=True)
     
     
-    slt.subheader("Retrevival of the top 5 of each datasets")
+    slt.subheader("Retrevival of the top 12 of each datasets")
     slt.write("Civilian_unemployment_rate_data")
-    slt.write(civilian_unemployment_rate_data.head())
+    slt.write(civilian_unemployment_rate_data.head(12))
     
     slt.write("Civilian_unemployment_force_data")
-    slt.write(civilian_unemployment_force_data.head())
+    slt.write(civilian_unemployment_force_data.head(12))
     
     slt.write("Civilian Labor Force")
-    slt.write(civilian_labor_force_data.head())
+    slt.write(civilian_labor_force_data.head(12))
     
     slt.write("Total Nonfarm Employment")
-    slt.write(civilian_Nonfarm_force_data.head())
+    slt.write(civilian_Nonfarm_force_data.head(12))
     
     slt.write("Civilian Employment")
-    slt.write(civilian_employment_force_data.head())
+    slt.write(civilian_employment_force_data.head(12))
     
 
