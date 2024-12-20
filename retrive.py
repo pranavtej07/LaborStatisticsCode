@@ -54,6 +54,7 @@ output_file = "data/Retrived_data.xlsx"
 def main(start_year, end_year):
     start_year =start_year.year
     end_year = end_year.year
+    dataprocessing_save(start_year, end_year, output_file, DATASETS_IDS, API_KEY)
     data = pd.read_excel(output_file, sheet_name=None, engine='openpyxl')
     if os.path.exists(CSV_FILE):
         os.remove(CSV_FILE)
@@ -63,4 +64,4 @@ def main(start_year, end_year):
     df_cleaned = df_combined.dropna(subset=["VALUE", "SERIES_NAME"])
     df_cleaned['YEAR'] = df_cleaned['YEAR_MONTH'].dt.year
     df_cleaned.to_csv(CSV_FILE, index=False)
-    dataprocessing_save(start_year, end_year, output_file, DATASETS_IDS, API_KEY)
+    
