@@ -23,7 +23,7 @@ def dataprocessing_save(start_year, output_file, DATASETS_IDS, API_KEY):
     current_month = datetime.now().month
     all_data = []
     for name, series_id in DATASETS_IDS.items():
-        raw_data = data_retrival(start_year, current_year, {name: series_id}, API_KEY)
+        raw_data = data_retrival(start_year, current_year, series_id, API_KEY)
         records = raw_data.get("Results", {}).get("series", [])[0].get("data", [])
         if not records:
             print(f"No data found for {name} ({series_id})")
